@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('receptionsApp', [
+angular.module('reack', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
@@ -18,6 +18,10 @@ angular.module('receptionsApp', [
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
+        controller: 'MainCtrl'
+      })
+      .when('/receipt', {
+        templateUrl: 'views/receipt.html',
         controller: 'MainCtrl'
       })
       .otherwise({

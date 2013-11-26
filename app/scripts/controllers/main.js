@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('receptionsApp')
+angular.module('reack')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

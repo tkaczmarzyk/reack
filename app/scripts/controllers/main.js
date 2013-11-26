@@ -7,4 +7,7 @@ angular.module('reack')
       'AngularJS',
       'Karma'
     ];
+    $scope.sum = function() {
+        return $scope.timeWorked*$scope.dailyWage;
+      };
   });

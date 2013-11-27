@@ -20,3 +20,19 @@ reackServices.factory('Calculation', function() {
 		}
 	};
 });
+
+reackServices.factory('Persistence', function() {
+	var dailyWage = null;
+	return {
+		loadDailyWage : function() {
+			return dailyWage;
+		},
+		saveDailyWage : function(wage) {
+			dailyWage = wage;
+		}
+	};
+});
+
+reackServices.factory('Timesheet', function() {
+
+});

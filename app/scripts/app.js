@@ -4,7 +4,8 @@ angular.module('reack', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'reackServices'
 ])
   .config(function ($routeProvider) {
     $routeProvider

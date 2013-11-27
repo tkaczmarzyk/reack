@@ -7,7 +7,16 @@ reackServices.factory('Calculation', function() {
 
 	return {
 		calculate : function(dailyWage, timeWorked) {
-			return dailyWage * timeWorked;
+			_.mixin(_.str.exports());
+			console.log(_(timeWorked).trim());
+			if (timeWorked !== undefined) {
+				if (_(timeWorked).endsWith('h')) {
+					timeWorked = _(timeWorked).strLeft('h') / 8.0;
+				}
+				return dailyWage * timeWorked;
+			} else {
+				return 0;
+			}
 		}
 	};
 });

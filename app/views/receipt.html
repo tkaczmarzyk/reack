@@ -1,5 +1,57 @@
 <div>
-	<input name='timeWorked' ng-model='timeWorked'>
-	<input name='dailyWage' ng-model='dailyWage'>
-	<span class="sum" ng-model='sum'>{{sum()}}</span>
+	<h1>Protokół odbioru Prac do zamówienia z dnia <input ng-model="orderDate"></input></h1>
+
+	<p>
+		W dniu <input ng-model="receiptDate"></input> we Wrocławiu komisja w składzie:
+		<ul>
+			Ze strony Zamawiającego:
+			<li>John Doe</li>
+		</ul>
+		<ul>
+			Ze strony Wykonawcy:
+			<li>Mary Jane</li>
+		</ul>
+		stwierdza się odbiór prac w terminie od <span>{{orderDate}}</span> do <span>{{receiptDate}}</span>.
+	</p>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Imię i nazwisko</th>
+				<th>Kod projektu</th>
+				<th>Stawka dzienna</th>
+				<th>Liczba zakontraktowanych h/dni</th>
+				<th>Liczba przepracowanych h/dni</th>
+				<th>Suma zamówienia</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td></td>
+				<td></td>
+				<td><input name='dailyWage' ng-model='dailyWage'></td>
+				<td></td>
+				<td><input name='timeWorked' ng-model='timeWorked'></td>
+				<td></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<p>Suma wynagrodzenia: <span class="sum">{{sum()}}</span> netto PLN</p>
+
+	<p>
+		<ul>
+			Strony potwierdzają że
+			<li>dzieło zostało wykonane w sposób poprawny</li>
+			<li>za wykonaną pracę Wykonawcy przysługuje wynagrodzenie w wysokości <span class="sum">{{sum()}}</span> netto PLN</li>
+			<li>z dniem podpisania niniejszego Protokołu przechodzą na Zamawiającego prawa własności intelektualnej do rezultatów Prac, określone w par. 4 Umowy</li>
+		</ul>
+	</p>
+
+	<div>
+		Zamawiający
+	</div>
+	<div>
+		Wykonawca
+	</div>
 </div>

@@ -1,3 +1,5 @@
+karma_e2e_html/
+karma_html/
 node_modules
 dist
 .tmp

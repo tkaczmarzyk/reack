@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('reack')
+angular.module('reack.controllers', ['reack.filters'])
   .controller('MainCtrl', ['$scope', 'Calculation', function ($scope, Calculation) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

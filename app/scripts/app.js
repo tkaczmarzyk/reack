@@ -5,7 +5,9 @@ angular.module('reack', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'reackServices'
+  'reackServices',
+  'reack.filters',
+  'reack.controllers'
 ])
   .config(function ($routeProvider) {
     $routeProvider

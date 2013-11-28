@@ -7,11 +7,10 @@ reackServices.factory('Calculation', function() {
 
 	return {
 		calculate : function(dailyWage, timeWorked) {
-			_.mixin(_.str.exports());
-			console.log(_(timeWorked).trim());
 			if (timeWorked !== undefined) {
 				if (_(timeWorked).endsWith('h')) {
-					timeWorked = _(timeWorked).strLeft('h') / 8.0;
+					timeWorked = _(timeWorked).strLeft('h');
+					timeWorked =  timeWorked / 8.0;
 				}
 				return dailyWage * timeWorked;
 			} else {

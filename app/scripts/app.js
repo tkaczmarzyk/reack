@@ -1,6 +1,5 @@
 'use strict';
 
-
 angular.module('reack', [
   'ngCookies',
   'ngResource',
@@ -29,4 +28,9 @@ angular.module('reack', [
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .run(function ($window) {
+    var _ = $window._;
+    _.mixin(_.str.exports());
+    console.log('global initialization done');
+  });;

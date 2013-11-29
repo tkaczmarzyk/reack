@@ -1,0 +1,59 @@
+<div>
+	<h1>Protokół odbioru Prac do zamówienia z dnia <!-- <input ng-model="project.orderDate"></input> --><span>{{project.orderDate}}</span></h1>
+
+	<p>
+		W dniu <!-- <input ng-model="project.receiptDate"></input>  --> <span>{{project.receiptDate}}</span> we Wrocławiu komisja w składzie:
+		<ul>
+			Ze strony Zamawiającego:
+			<li>John Doe</li>
+		</ul>
+		<ul>
+			Ze strony Wykonawcy:
+			<li>Mary Jane</li>
+		</ul>
+		stwierdza się odbiór prac w terminie od <span>{{orderDate}}</span> do <span>{{receiptDate}}</span>.
+	</p>
+
+	<div class="panel panel-default">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Imię i nazwisko</th>
+				<th>Kod projektu</th>
+				<th>Stawka dzienna</th>
+				<th>Liczba zakontraktowanych h/dni</th>
+				<th>Liczba przepracowanych h/dni</th>
+				<th>Suma zamówienia</th>
+			</tr>
+		</thead>
+		<tbody ng-repeat="proj in project.data">
+			<tr>
+				<td></td>
+				<td><span>{{proj.name}}</span></td>
+				<td><!-- <input name='dailyWage' ng-model='project.dailyWage'></td> --><span>{{proj.dailyWage}}</span>
+				<td></td>
+				<td><!-- <input name='timeWorked' ng-model='project.timeWorked'></td> --><span>{{proj.timeWorked}}</span>
+				<td><span>{{sumProj(proj)}}</span></td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
+
+	<p>Suma wynagrodzenia: <span class="sum">{{sum()|netMoney}}</span></p>
+
+	<p>
+		<ul>
+			Strony potwierdzają że
+			<li>dzieło zostało wykonane w sposób poprawny</li>
+			<li>za wykonaną pracę Wykonawcy przysługuje wynagrodzenie w wysokości <span class="sum">{{ sum() | netMoney }}</span></li>
+			<li>z dniem podpisania niniejszego Protokołu przechodzą na Zamawiającego prawa własności intelektualnej do rezultatów Prac, określone w par. 4 Umowy</li>
+		</ul>
+	</p>
+
+	<div class="pull-left">
+		Zamawiający
+	</div>
+	<div class="pull-right">
+		Wykonawca
+	</div>
+</div>

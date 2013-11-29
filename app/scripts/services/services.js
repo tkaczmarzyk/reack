@@ -1,9 +1,10 @@
+/* global _:false */
 'use strict';
 
-var reackServices = angular.module('reackServices', []);
+var reackServices = angular.module('reackServices', [])
+	.value('localStorage', window.localStorage);
 
 reackServices.factory('Calculation', function() {
-	console.log("reackServices.factory");
 
 	return {
 		calculate : function(dailyWage, timeWorked) {
@@ -20,7 +21,7 @@ reackServices.factory('Calculation', function() {
 	};
 });
 
-reackServices.factory('Persistence', function() {
+reackServices.factory('Persistence', function(localStorage) {
 	var dailyWage = null;
 	return {
 		loadDailyWage : function() {
@@ -28,6 +29,12 @@ reackServices.factory('Persistence', function() {
 		},
 		saveDailyWage : function(wage) {
 			dailyWage = wage;
+		},
+		loadProjectData : function() {
+			return JSON.parse(localStorage.projectData);
+		},
+		saveProjectData : function(data) {
+			localStorage.projectData = JSON.stringify(data);
 		}
 	};
 });

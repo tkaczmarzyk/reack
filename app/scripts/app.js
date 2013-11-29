@@ -27,6 +27,10 @@ angular.module('reack', [
         templateUrl: 'views/receipt.html',
         controller: 'MainCtrl'
       })
+      .when('/receipt2', {
+        templateUrl: 'views/receipt2.html',
+        controller: 'ReceiptCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -35,4 +39,4 @@ angular.module('reack', [
     var _ = $window._;
     _.mixin(_.str.exports());
     console.log('global initialization done');
-  });;
+  });

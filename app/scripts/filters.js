@@ -1,10 +1,12 @@
- angular.module('reack.filters', [])
+'use strict';
+
+angular.module('reack.filters', [])
   .filter('netMoney', function() {
-  	return function (input) {
+    return function (input) {
 	    if (input !== undefined) {
 	      return input + ' netto PLN';
 	    } else {
 	      return input;
 	    }
-	  }
+	  };
   });

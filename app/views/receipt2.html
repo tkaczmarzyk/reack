@@ -1,15 +1,15 @@
 <div>
-	<h1>Protokół odbioru Prac do zamówienia z dnia <!-- <input ng-model="project.orderDate"></input> --><span>{{project.orderDate}}</span></h1>
+	<h1>Protokół odbioru Prac do zamówienia z dnia <span>{{project.orderDate}}</span></h1>
 
 	<p>
-		W dniu <!-- <input ng-model="project.receiptDate"></input>  --> <span>{{project.receiptDate}}</span> we Wrocławiu komisja w składzie:
+		W dniu <span>{{project.receiptDate}}</span> we Wrocławiu komisja w składzie:
 		<ul>
 			Ze strony Zamawiającego:
-			<li>{{config.managerName}}</li>
+			<li id="managerName">{{config.managerName}}</li>
 		</ul>
 		<ul>
 			Ze strony Wykonawcy:
-			<li>{{config.name}}</li>
+			<li id="name">{{config.name}}</li>
 		</ul>
 		stwierdza się odbiór prac w terminie od <span>{{orderDate}}</span> do <span>{{receiptDate}}</span>.
 	</p>
@@ -26,13 +26,13 @@
 				<th>Suma zamówienia</th>
 			</tr>
 		</thead>
-		<tbody ng-repeat="proj in project.data">
+		<tbody ng-repeat="proj in projects">
 			<tr>
 				<td>{{config.name}}</td>
 				<td><span>{{proj.name}}</span></td>
-				<td>{{config.dailyWage|netMoney}}<span></td>
+				<td id="dailyWage">{{config.dailyWage|netMoney}}<span></td>
 				<td></td>
-				<td><!-- <input name='timeWorked' ng-model='project.timeWorked'></td> --><span>{{proj.timeWorked}}</span>
+				<td><span>{{proj.timeWorked}}</span>
 				<td><span>{{sumProj(proj)|netMoney}}</span></td>
 			</tr>
 		</tbody>

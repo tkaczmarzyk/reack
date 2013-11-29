@@ -17,11 +17,11 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
   .controller('ReceiptCtrl', ['$scope', 'Calculation', 'Persistence', function ($scope, Calculation, Persistence) {
 
     $scope.config = Persistence.loadConfig();
-    $scope.project = Persistence.loadProjectData();
+    $scope.projects = Persistence.loadProjectData();
 
     $scope.sum = function () {
       var projectSum = 0;
-      $scope.project.data.forEach(function(entry){
+      $scope.projects.forEach(function(entry){
         projectSum = projectSum + Calculation.calculate($scope.config.dailyWage, entry.timeWorked) || 0;
       });
       return projectSum;

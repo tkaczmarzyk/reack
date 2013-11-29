@@ -35,6 +35,13 @@ reackServices.factory('Persistence', function(localStorage) {
 		},
 		saveProjectData : function(data) {
 			localStorage.projectData = JSON.stringify(data);
+		},
+		loadConfig : function() {
+			var config = localStorage.config;
+			return config ? JSON.parse(localStorage.config) : {};
+		},
+		saveConfig : function(config) {
+			localStorage.config = JSON.stringify(config);
 		}
 	};
 });

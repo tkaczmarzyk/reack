@@ -5,11 +5,11 @@
 		W dniu <!-- <input ng-model="project.receiptDate"></input>  --> <span>{{project.receiptDate}}</span> we Wrocławiu komisja w składzie:
 		<ul>
 			Ze strony Zamawiającego:
-			<li>John Doe</li>
+			<li>{{config.managerName}}</li>
 		</ul>
 		<ul>
 			Ze strony Wykonawcy:
-			<li>Mary Jane</li>
+			<li>{{config.name}}</li>
 		</ul>
 		stwierdza się odbiór prac w terminie od <span>{{orderDate}}</span> do <span>{{receiptDate}}</span>.
 	</p>
@@ -28,12 +28,12 @@
 		</thead>
 		<tbody ng-repeat="proj in project.data">
 			<tr>
-				<td></td>
+				<td>{{config.name}}</td>
 				<td><span>{{proj.name}}</span></td>
-				<td><!-- <input name='dailyWage' ng-model='project.dailyWage'></td> --><span>{{proj.dailyWage}}</span>
+				<td>{{config.dailyWage|netMoney}}<span></td>
 				<td></td>
 				<td><!-- <input name='timeWorked' ng-model='project.timeWorked'></td> --><span>{{proj.timeWorked}}</span>
-				<td><span>{{sumProj(proj)}}</span></td>
+				<td><span>{{sumProj(proj)|netMoney}}</span></td>
 			</tr>
 		</tbody>
 	</table>

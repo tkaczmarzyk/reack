@@ -16,23 +16,28 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
   }])
   .controller('ReceiptCtrl', ['$scope', 'Calculation', 'Persistence', function ($scope, Calculation, Persistence) {
 
+    $scope.config = Persistence.loadConfig();
+    $scope.project = Persistence.loadProjectData();
+
     $scope.sum = function () {
       var projectSum = 0;
       $scope.project.data.forEach(function(entry){
-        projectSum = projectSum + Calculation.calculate(entry.dailyWage, entry.timeWorked) || 0;
+        projectSum = projectSum + Calculation.calculate($scope.config.dailyWage, entry.timeWorked) || 0;
       });
       return projectSum;
     };
 
     $scope.sumProj = function (project) {
-      return Calculation.calculate(project.dailyWage, project.timeWorked) || 0;
+      return Calculation.calculate($scope.config.dailyWage, project.timeWorked) || 0;
     };
 
-    $scope.save = function (dailyWage) {
-      Persistence.saveDailyWage(dailyWage);
+  }])
+  .controller('ConfigCtrl', ['$scope', 'Persistence', function ($scope, Persistence) {
+
+    $scope.config = Persistence.loadConfig();
+
+    $scope.save = function () {
+      Persistence.saveConfig($scope.config);
     };
 
-    $scope.saveProjectData = function () {
-      Persistence.saveProjectData($scope.project);
-    };
   }]);

@@ -1,6 +1,7 @@
 {
   "name": "reack",
   "version": "0.0.1",
+  "directory": "app/bower_components",
   "dependencies": {
     "angular": "~1.2.0",
     "json3": "~3.2.4",

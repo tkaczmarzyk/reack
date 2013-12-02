@@ -1,5 +1,9 @@
+.settings
+.project
+.classpath
 karma_e2e_html/
 karma_html/
+target/
 node_modules
 dist
 .tmp

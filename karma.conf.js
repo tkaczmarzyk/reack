@@ -2,6 +2,8 @@
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
 module.exports = function(config) {
+  var appDir = "app";	
+	
   config.set({
     // base path, that will be used to resolve files and exclude
     basePath: '',
@@ -11,16 +13,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'app/bower_components/underscore/underscore-min.js',
-      'app/bower_components/underscore.string/dist/underscore.string.min.js',
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/bower_components/angular-resource/angular-resource.js',
-      'app/bower_components/angular-cookies/angular-cookies.js',
-      'app/bower_components/angular-sanitize/angular-sanitize.js',
-      'app/bower_components/angular-route/angular-route.js',
-      'app/scripts/*.js',
-      'app/scripts/**/*.js',
+      appDir + '/bower_components/underscore/underscore-min.js',
+      appDir + '/bower_components/underscore.string/dist/underscore.string.min.js',
+      appDir + '/bower_components/angular/angular.js',
+      appDir + '/bower_components/angular-mocks/angular-mocks.js',
+      appDir + '/bower_components/angular-resource/angular-resource.js',
+      appDir + '/bower_components/angular-cookies/angular-cookies.js',
+      appDir + '/bower_components/angular-sanitize/angular-sanitize.js',
+      appDir + '/bower_components/angular-route/angular-route.js',
+      appDir + '/scripts/*.js',
+      appDir + '/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
     ],

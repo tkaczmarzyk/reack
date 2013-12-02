@@ -11,11 +11,13 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
 
+  var targetDir = grunt.option('target') || 'dist';
+  
   grunt.initConfig({
     yeoman: {
       // configurable paths
       app: require('./bower.json').appPath || 'app',
-      dist: 'dist'
+      dist: targetDir
     },
     watch: {
       coffee: {

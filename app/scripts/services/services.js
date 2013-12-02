@@ -31,10 +31,24 @@ reackServices.factory('Persistence', function(localStorage) {
 			dailyWage = wage;
 		},
 		loadProjectData : function() {
-			return JSON.parse(localStorage.projectData);
+			return [{
+				name:'Strike Team',
+				timeWorked:'160h'
+			},{
+				name:'Wyceny',
+				timeWorked:'2'
+			}];
+			// return JSON.parse(localStorage.projectData);
 		},
 		saveProjectData : function(data) {
 			localStorage.projectData = JSON.stringify(data);
+		},
+		loadConfig : function() {
+			var config = localStorage.config;
+			return config ? JSON.parse(localStorage.config) : {};
+		},
+		saveConfig : function(config) {
+			localStorage.config = JSON.stringify(config);
 		}
 	};
 });

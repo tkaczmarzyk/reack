@@ -31,6 +31,10 @@ angular.module('reack', [
         templateUrl: 'views/receipt2.html',
         controller: 'ReceiptCtrl'
       })
+      .when('/config', {
+        templateUrl: 'views/config.html',
+        controller: 'ConfigCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

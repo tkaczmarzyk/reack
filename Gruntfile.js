@@ -343,13 +343,28 @@ module.exports = function (grunt) {
       'watch'
     ]);
   });
-
-  grunt.registerTask('test', [
+ 
+  grunt.registerTask('test:prepare', [
     'clean:server',
     'concurrent:test',
     'autoprefixer',
-    'connect:test',
-    'karma'
+    'connect:test'
+  ]);
+
+  grunt.registerTask('test:unit', [
+    'test:prepare',
+    'karma:unit'
+  ]);
+
+  grunt.registerTask('test:e2e', [
+    'test:prepare',
+    'karma:e2e'
+  ]);
+  
+  grunt.registerTask('test', [
+    'test:prepare',
+    'karma:unit',
+    'karma:e2e'
   ]);
 
   grunt.registerTask('build', [

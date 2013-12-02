@@ -39,5 +39,9 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     $scope.save = function () {
       Persistence.saveConfig($scope.config);
     };
-
+  }])
+  .controller('HelloCtrl', ['$scope', '$http', function ($scope, $http) {
+    $http({ method: 'GET', url: '/api/hello'}).success(function(data) {
+      $scope.message = data;
+    });
   }]);

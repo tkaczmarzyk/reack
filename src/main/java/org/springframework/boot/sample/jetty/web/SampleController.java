@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.sample.jetty.service.HelloWorldService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -30,7 +31,7 @@ public class SampleController {
 
 	@RequestMapping("/hello")
 	@ResponseBody
-	public String helloWorld() {
-		return this.helloWorldService.getHelloMessage();
+	public String helloWorld(@RequestParam(value="name", defaultValue="World") String name) {
+		return this.helloWorldService.getHelloMessage() + name;
 	}
 }

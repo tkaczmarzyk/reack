@@ -1,0 +1,47 @@
+<project name="Reack" default="unitTest">
+	<target name="unitTest">
+		<echo>
+			-- NPM INSTALL --
+		</echo>
+		<exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+			<arg line="/c npm config set color false" />
+		</exec>
+		<exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+			<arg line="config set color false" />
+		</exec>
+		<exec executable="cmd" dir="${project.basedir}" osfamily="windows" failonerror="true">
+			<arg line="/c npm install" />
+		</exec>
+		<exec executable="npm" dir="${project.basedir}" osfamily="unix" failonerror="true">
+			<arg line="install" />
+		</exec>
+		<echo>
+			-- GRUNT --
+		</echo>
+		<exec executable="cmd" dir="${project.basedir}" osfamily="windows" resultproperty="cmdresult">
+			<arg line="/c grunt --no-color > grunt.status " />
+		</exec>
+		<exec executable="grunt" dir="${project.basedir}" osfamily="unix" resultproperty="cmdresult">
+			<arg line="test:unit build --no-color --target=target/${project.artifactId}-${project.version}" />
+		</exec>
+		<condition property="cmdsuccess">
+			<equals arg1="${cmdresult}" arg2="0" />
+		</condition>
+		<fail unless="cmdsuccess" />
+	</target>
+	<target name="e2eTest">
+		<echo>
+                        -- GRUNT --
+                </echo>
+                <exec executable="cmd" dir="${project.basedir}" osfamily="windows" resultproperty="cmdresult">
+                        <arg line="/c grunt --no-color > grunt.status " />
+                </exec>
+                <exec executable="grunt" dir="${project.basedir}" osfamily="unix" resultproperty="cmdresult">
+                        <arg line="test:e2e --no-color --target=target/${project.artifactId}-${project.version}" />
+                </exec>
+                <condition property="cmdsuccess">
+                        <equals arg1="${cmdresult}" arg2="0" />
+                </condition>
+                <fail unless="cmdsuccess" />
+	</target>
+</project>

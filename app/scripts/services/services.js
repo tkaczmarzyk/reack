@@ -33,7 +33,8 @@ reackServices.factory('Persistence', function(localStorage) {
 		loadProjectData : function() {
 			return [{
 				name:'Strike Team',
-				timeWorked:'160h'
+				timeWorked:'160h',
+				contractedTime:'150h'
 			},{
 				name:'Wyceny',
 				timeWorked:'2'
@@ -56,3 +57,28 @@ reackServices.factory('Persistence', function(localStorage) {
 reackServices.factory('Timesheet', function() {
 
 });
+
+reackServices.factory('ReceiptGenerator', ['Persistence','Calculation',function(Persistence,Calculation) {
+	return {
+		generateReceipt : function(/*year, month*/) {
+			var result = {};
+			var config = Persistence.loadConfig();
+			result.orderDate = '1-11-2013'; //getMonthFirstDay(month);
+			result.receiptDate = '1-12-2013'; //getNextMonthFirstDay(month);
+			result.startDate = '1-11-2013'; //getMonthFirstDay(month);
+			result.endDate = '30-11-2013'; //getMonthLastDay(month);
+			result.managerName = config.managerName;
+			result.workerName = config.name;
+			result.dailyWage = config.dailyWage;
+			result.projects = Persistence.loadProjectData();
+			result.totalSum = 0;
+			result.projects.forEach(function(elem){
+				elem.dailyWage = config.dailyWage;
+				elem.workerName = config.name;
+				elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
+				result.totalSum = result.totalSum + elem.sum;
+			});
+			return result;
+		}
+	};
+}]);

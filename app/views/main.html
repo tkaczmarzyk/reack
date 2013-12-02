@@ -1,29 +1,19 @@
-<div class="header">
-	<ul class="nav nav-pills pull-right">
-		<li class="active"><a href="#">Home</a></li>
-		<li><a href="#/about">About</a></li>
-		<li><a href="#/contact">Contact</a></li>
-		<li><a href="#/config">Config</a></li>
-	</ul>
-	<h3 class="text-muted">Reack</h3>
-</div>
-
+<div ng-init="tog=0" data-ng-include data-src="'views/header.html'"></div>
 <div class="jumbotron">
-	<h1>'Allo, 'Allo!</h1>
-	<p class="lead">Always a pleasure scaffolding your apps.</p>
-	<p><a id="calculate" class="btn btn-lg btn-success" href="#/receipt2">Splendid!</a></p>
-</div>
-
-<div class="row marketing">
-	<h4>HTML5 Boilerplate</h4>
-	<p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-
-	<h4>Angular</h4>
-	<p>AngularJS is a toolset for building the framework most suited to your application development.</p>
-
-	<h4>Karma</h4>
-	<p>Spectacular Test Runner for JavaScript.</p>
-</div>
+	<h1>'Uwaga, Uwaga!</h1>
+	<p class="lead">Nowa aplikacja do obsługi odbiorów ...</p>
+	<p>
+	<div class="col-sm-6">
+		<select ng-model="month" class="form-control" ng-options="m.name for m in months">
+		</select>
+	</div>
+	<div class="col-sm-6">
+		<select ng-model="year" class="form-control" ng-options="y.name for y in years">
+		</select>
+	</div>
+	</p>
+	<br/>
+	<p><a id="calculate" class="btn btn-lg btn-success" href="#/receipt2">Generuj odbiór!</a></p>
 </div>
 
 <div class="footer">

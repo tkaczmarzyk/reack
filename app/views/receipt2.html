@@ -1,17 +1,17 @@
 <div>
-	<h1>Protokół odbioru Prac do zamówienia z dnia <span>{{project.orderDate}}</span></h1>
+	<h3>Protokół odbioru Prac do zamówienia z dnia <span>{{receiptData.orderDate}}</span></h3>
 
 	<p>
-		W dniu <span>{{project.receiptDate}}</span> we Wrocławiu komisja w składzie:
+		W dniu <span>{{receiptData.receiptDate}}</span> we Wrocławiu komisja w składzie:
 		<ul>
 			Ze strony Zamawiającego:
-			<li id="managerName">{{config.managerName}}</li>
+			<li id="managerName">{{receiptData.managerName}}</li>
 		</ul>
 		<ul>
 			Ze strony Wykonawcy:
-			<li id="name">{{config.name}}</li>
+			<li id="name">{{receiptData.workerName}}</li>
 		</ul>
-		stwierdza się odbiór prac w terminie od <span>{{orderDate}}</span> do <span>{{receiptDate}}</span>.
+		stwierdza się odbiór prac w terminie od <span>{{receiptData.startDate}}</span> do <span>{{receiptData.endDate}}</span>.
 	</p>
 
 	<div class="panel panel-default">
@@ -26,26 +26,26 @@
 				<th>Suma zamówienia</th>
 			</tr>
 		</thead>
-		<tbody ng-repeat="proj in projects">
+		<tbody ng-repeat="proj in receiptData.projects">
 			<tr>
-				<td>{{config.name}}</td>
+				<td>{{proj.workerName}}</td>
 				<td><span>{{proj.name}}</span></td>
-				<td id="dailyWage">{{config.dailyWage|netMoney}}<span></td>
-				<td></td>
+				<td id="dailyWage">{{proj.dailyWage|netMoney}}<span></td>
+				<td>{{proj.contractedTime}}</td>
 				<td><span>{{proj.timeWorked}}</span>
-				<td><span>{{sumProj(proj)|netMoney}}</span></td>
+				<td><span>{{proj.sum|netMoney}}</span></td>
 			</tr>
 		</tbody>
 	</table>
 	</div>
 
-	<p>Suma wynagrodzenia: <span class="sum">{{sum()|netMoney}}</span></p>
+	<p>Suma wynagrodzenia: <span class="sum">{{receiptData.totalSum|netMoney}}</span></p>
 
 	<p>
 		<ul>
 			Strony potwierdzają że
 			<li>dzieło zostało wykonane w sposób poprawny</li>
-			<li>za wykonaną pracę Wykonawcy przysługuje wynagrodzenie w wysokości <span class="sum">{{ sum() | netMoney }}</span></li>
+			<li>za wykonaną pracę Wykonawcy przysługuje wynagrodzenie w wysokości <span class="sum">{{receiptData.totalSum | netMoney }}</span></li>
 			<li>z dniem podpisania niniejszego Protokołu przechodzą na Zamawiającego prawa własności intelektualnej do rezultatów Prac, określone w par. 4 Umowy</li>
 		</ul>
 	</p>

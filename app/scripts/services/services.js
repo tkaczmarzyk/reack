@@ -32,11 +32,11 @@ reackServices.factory('Persistence', function(localStorage) {
 		},
 		loadProjectData : function() {
 			return [{
-				name:'Strike Team',
+				projectCode:'Strike Team',
 				timeWorked:'160h',
 				contractedTime:'150h'
 			},{
-				name:'Wyceny',
+				projectCode:'Wyceny',
 				timeWorked:'2'
 			}];
 			// return JSON.parse(localStorage.projectData);
@@ -58,7 +58,7 @@ reackServices.factory('Timesheet', function() {
 
 });
 
-reackServices.factory('ReceiptGenerator', ['Persistence','Calculation',function(Persistence,Calculation) {
+reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http',function(Persistence,Calculation,$http) {
 	return {
 		generateReceipt : function(/*year, month*/) {
 			var result = {};
@@ -70,14 +70,28 @@ reackServices.factory('ReceiptGenerator', ['Persistence','Calculation',function(
 			result.managerName = config.managerName;
 			result.workerName = config.name;
 			result.dailyWage = config.dailyWage;
-			result.projects = Persistence.loadProjectData();
-			result.totalSum = 0;
-			result.projects.forEach(function(elem){
-				elem.dailyWage = config.dailyWage;
-				elem.workerName = config.name;
-				elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
-				result.totalSum = result.totalSum + elem.sum;
+
+			$http({
+				method:'POST',
+				url:'/api/monthSummary',
+				data:{
+					'month':11,
+					'year': 2013,
+					'beeboleToken':config.beeboleToken
+				}
+			})
+			.success(function(data) {
+				result.projects = data.projects;
+				data.projects.forEach(function(elem){
+					elem.timeWorked = elem.timeWorked+'h';
+					elem.dailyWage = config.dailyWage;
+					elem.workerName = config.name;
+					elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
+					result.totalSum = result.totalSum + elem.sum;
+				});
 			});
+
+			result.totalSum = 0;
 			return result;
 		}
 	};

@@ -9,7 +9,7 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
       'Karma'
     ];
 
-    $scope.months = [{name:'styczeń'},{name:'luty'}];
+    $scope.months = [{name:'styczeń'},{name:'luty'},{name:'marzec'},{name:'kwiecień'},{name:'maj'},{name:'czerwiec'},{name:'lipiec'},{name:'sierpień'},{name:'wrzesień'},{name:'październik'},{name:'listopad'},{name:'grudzień'}];
 
     $scope.years = [{name:2013},{name:2014}];
 

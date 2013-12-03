@@ -36,4 +36,5 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     $http({ method: 'GET', url: '/api/hello?name=' + $routeParams.name}).success(function(data) {
       $scope.message = data;
     });
+    
   }]);

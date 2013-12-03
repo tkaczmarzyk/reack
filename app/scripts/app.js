@@ -7,7 +7,8 @@ angular.module('reack', [
   'ngRoute',
   'reackServices',
   'reack.filters',
-  'reack.controllers'
+  'reack.controllers',
+  'ui.bootstrap'
 ])
   .config(function ($routeProvider) {
     $routeProvider

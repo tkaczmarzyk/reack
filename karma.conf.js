@@ -21,6 +21,7 @@ module.exports = function(config) {
       appDir + '/bower_components/angular-cookies/angular-cookies.js',
       appDir + '/bower_components/angular-sanitize/angular-sanitize.js',
       appDir + '/bower_components/angular-route/angular-route.js',
+      appDir + '/bower_components/angular-bootstrap/ui-bootstrap.min.js',
       appDir + '/scripts/*.js',
       appDir + '/scripts/**/*.js',
       'test/mock/**/*.js',

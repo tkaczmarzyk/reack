@@ -35,7 +35,7 @@ angular.module('reack', [
         templateUrl: 'views/config.html',
         controller: 'ConfigCtrl'
       })
-      .when('/hello', {
+      .when('/hello/:name', {
         templateUrl: 'views/hello.html',
         controller: 'HelloCtrl'
       })

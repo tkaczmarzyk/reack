@@ -40,8 +40,8 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
       Persistence.saveConfig($scope.config);
     };
   }])
-  .controller('HelloCtrl', ['$scope', '$http', function ($scope, $http) {
-    $http({ method: 'GET', url: '/api/hello'}).success(function(data) {
+  .controller('HelloCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
+    $http({ method: 'GET', url: '/api/hello?name=' + $routeParams['name']}).success(function(data) {
       $scope.message = data;
     });
   }]);

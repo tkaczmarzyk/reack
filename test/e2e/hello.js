@@ -2,13 +2,16 @@
 
 describe('Integration with backend', function() {
 
-	beforeEach(function(){
-		browser().navigateTo('/');
+	var mockBackend;
 
+	beforeEach(function($httpBackend){
+		mockBackend = $httpBackend;
+		browser().navigateTo('/');
 	});
 
 	it('should display hello message from server', function(){
-		browser().navigateTo('#/hello?name=Jetty');
+		//mockBackend.whenGET('/api/hello?name=Jetty').respond('Hello Jetty');
+		browser().navigateTo('#/hello/Jetty');
 		
 		expect(element('h3.msg').text()).toEqual('Hello Jetty');
 	});

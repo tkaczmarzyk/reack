@@ -33,7 +33,7 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     };
   }])
   .controller('HelloCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {
-    $http({ method: 'GET', url: '/api/hello?name=' + $routeParams['name']}).success(function(data) {
+    $http({ method: 'GET', url: '/api/hello?name=' + $routeParams.name}).success(function(data) {
       $scope.message = data;
     });
   }]);

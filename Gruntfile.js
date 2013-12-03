@@ -13,6 +13,9 @@ module.exports = function (grunt) {
 
   var targetDir = grunt.option('target') || 'dist';
   
+  grunt.loadNpmTasks('grunt-connect-proxy');
+  var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+
   grunt.initConfig({
     yeoman: {
       // configurable paths
@@ -66,14 +69,41 @@ module.exports = function (grunt) {
         hostname: 'localhost',
         livereload: 35729
       },
+      proxies: [
+        {
+          context: '/api',
+          host: 'localhost',
+          port: 8080,
+          changeOrigin: true
+        }
+      ],
       livereload: {
         options: {
           open: true,
           base: [
             '.tmp',
             '<%= yeoman.app %>'
-          ]
-        }
+          ],
+          middleware: function (connect, options) {
+            var middlewares = [];
+            var directory = options.directory || options.base[options.base.length - 1];
+            if (!Array.isArray(options.base)) {
+                options.base = [options.base];
+            }
+            options.base.forEach(function(base) {
+                // Serve static files.
+                middlewares.push(connect.static(base));
+            });
+
+            // Setup the proxy
+            middlewares.push(require('grunt-connect-proxy/lib/utils').proxyRequest);
+
+            // Make directory browse-able.
+            middlewares.push(connect.directory(directory));
+
+            return middlewares;
+          }
+        },
       },
       test: {
         options: {
@@ -339,6 +369,7 @@ module.exports = function (grunt) {
       'clean:server',
       'concurrent:server',
       'autoprefixer',
+      'configureProxies',
       'connect:livereload',
       'watch'
     ]);

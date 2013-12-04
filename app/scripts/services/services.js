@@ -60,13 +60,15 @@ reackServices.factory('Timesheet', function() {
 
 reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http',function(Persistence,Calculation,$http) {
 	return {
-		generateReceipt : function(/*year, month*/) {
+		generateReceipt : function() {
 			var result = {};
 			var config = Persistence.loadConfig();
-			result.orderDate = '1-11-2013'; //getMonthFirstDay(month);
-			result.receiptDate = '1-12-2013'; //getNextMonthFirstDay(month);
-			result.startDate = '1-11-2013'; //getMonthFirstDay(month);
-			result.endDate = '30-11-2013'; //getMonthLastDay(month);
+			result.orderDate = new Date(this.year,this.month-1,1); //getMonthFirstDay(month);
+			result.receiptDate = new Date(this.year,this.month,1); //getNextMonthFirstDay(month);
+			result.startDate = new Date(this.year,this.month-1,1); //getMonthFirstDay(month);
+			var endDate = new Date(this.year,this.month,1);
+			endDate.setDate(endDate.getDate()-1);
+			result.endDate = endDate;//getMonthLastDay(month);
 			result.managerName = config.managerName;
 			result.workerName = config.name;
 			result.dailyWage = config.dailyWage;
@@ -75,8 +77,8 @@ reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http',f
 				method:'POST',
 				url:'/api/monthSummary',
 				data:{
-					'month':11,
-					'year': 2013,
+					'month':this.month,
+					'year': this.year,
 					'beeboleToken':config.beeboleToken
 				}
 			})
@@ -93,6 +95,9 @@ reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http',f
 
 			result.totalSum = 0;
 			return result;
-		}
+		},
+
+		month : 10,
+		year : 2012
 	};
 }]);

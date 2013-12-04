@@ -1,8 +1,8 @@
 <div>
-	<h3>Protokół odbioru Prac do zamówienia z dnia <span>{{receiptData.orderDate}}</span></h3>
+	<h3>Protokół odbioru Prac do zamówienia z dnia <span>{{receiptData.orderDate | date:'dd-MM-yyyy'}}</span></h3>
 
 	<p>
-		W dniu <span>{{receiptData.receiptDate}}</span> we Wrocławiu komisja w składzie:
+		W dniu <span>{{receiptData.receiptDate | date:'dd-MM-yyyy'}}</span> we Wrocławiu komisja w składzie:
 		<ul>
 			Ze strony Zamawiającego:
 			<li id="managerName">{{receiptData.managerName}}</li>
@@ -11,7 +11,7 @@
 			Ze strony Wykonawcy:
 			<li id="name">{{receiptData.workerName}}</li>
 		</ul>
-		stwierdza się odbiór prac w terminie od <span>{{receiptData.startDate}}</span> do <span>{{receiptData.endDate}}</span>.
+		stwierdza się odbiór prac w terminie od <span>{{receiptData.startDate | date:'dd-MM-yyyy'}}</span> do <span>{{receiptData.endDate | date:'dd-MM-yyyy'}}</span>.
 	</p>
 
 	<div class="panel panel-default">

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reack.controllers', ['reack.filters','reackServices'])
-  .controller('MainCtrl', ['$scope', 'Calculation', function ($scope, Calculation) {
+  .controller('MainCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', function ($scope, Calculation, ReceiptGenerator) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -9,12 +9,17 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
       'Karma'
     ];
 
-    $scope.months = [{name:'styczeń'},{name:'luty'},{name:'marzec'},{name:'kwiecień'},{name:'maj'},{name:'czerwiec'},{name:'lipiec'},{name:'sierpień'},{name:'wrzesień'},{name:'październik'},{name:'listopad'},{name:'grudzień'}];
+    $scope.months = [{name:'styczeń',value:1},{name:'luty',value:2},{name:'marzec',value:3},{name:'kwiecień',value:4},{name:'maj',value:5},{name:'czerwiec',value:6},{name:'lipiec',value:7},{name:'sierpień',value:8},{name:'wrzesień',value:9},{name:'październik',value:10},{name:'listopad',value:11},{name:'grudzień',value:12}];
 
-    $scope.years = [{name:2013},{name:2014}];
+    $scope.years = [{name:'2013',value:2013},{name:'2014',value:2014}];
 
     $scope.sum = function () {
       return Calculation.calculate($scope.dailyWage, $scope.timeWorked) || 0;
+    };
+
+    $scope.setValues = function(){
+      ReceiptGenerator.month = $scope.month.value;
+      ReceiptGenerator.year = $scope.year.value;
     };
 
   }])

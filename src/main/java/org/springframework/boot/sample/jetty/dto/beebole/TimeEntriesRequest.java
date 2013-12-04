@@ -6,4 +6,9 @@ public class TimeEntriesRequest {
     public String from;
     public String to;
     
+    @Override
+    public String toString() {
+        return "TimeEntriesRequest [service=" + service + ", from=" + from + ", to=" + to + "]";
+    }
+    
 }

@@ -17,6 +17,10 @@
 package org.springframework.boot.sample.jetty.service;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.sample.jetty.dto.ProjectCode;
 import org.springframework.boot.sample.jetty.dto.ProjectSummary;
-import org.springframework.boot.sample.jetty.dto.TimesheetMonthlySummary;
+import org.springframework.boot.sample.jetty.dto.TimesheetSummary;
 import org.springframework.boot.sample.jetty.dto.beebole.EntitiesRequest;
 import org.springframework.boot.sample.jetty.dto.beebole.EntitiesResponse;
 import org.springframework.boot.sample.jetty.dto.beebole.TimeEntriesRequest;
@@ -50,24 +54,36 @@ public class BeeboleService {
     @Value("${beeboleUrl:https://cohesiva.beebole-apps.com/api}")
     private String url;
 
+    @Value("${beeboleDateFormat:yyyy-MM-dd}")
+    private String beeboleDateFormat;
+    
     private ObjectMapper mapper;
-
+    
+    private SimpleDateFormat format;
+    
     @Autowired
     private SummaryProcessor processor;
 
     @PostConstruct
-    private void initObjectMapper() {
+    private void init() {
         mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        format = new SimpleDateFormat(beeboleDateFormat);
     }
 
-    public TimesheetMonthlySummary getMonthSummary(String beeboleToken, Integer month, Integer year) throws Exception {
+    public TimesheetSummary getMonthSummary(String beeboleToken, Integer month, Integer year) throws Exception {
+        Date start = getFromDate(month, year);
+        Date end = getToDate(month, year);
+        return getSummary(beeboleToken, start, end);
+    }
+    
+    public TimesheetSummary getSummary(String beeboleToken, Date start, Date end) throws Exception {    
         EntitiesResponse entities = getEntities(beeboleToken);
-        TimeEntriesResponse timeEntries = getTimeEntries(beeboleToken, month, year);
+        TimeEntriesResponse timeEntries = getTimeEntries(beeboleToken, start, end);
 
         Map<ProjectCode, BigDecimal> summary = processor.generateSummary(timeEntries, entities);
 
-        TimesheetMonthlySummary result = new TimesheetMonthlySummary();
+        TimesheetSummary result = new TimesheetSummary();
         for (ProjectCode code : summary.keySet()) {
             ProjectSummary projsum = new ProjectSummary();
             projsum.projectCode = code.getProjectCode();
@@ -77,16 +93,18 @@ public class BeeboleService {
         return result;
     }
 
-    private TimeEntriesResponse getTimeEntries(String beeboleToken, Integer month, Integer year) throws Exception {
+    private TimeEntriesResponse getTimeEntries(String beeboleToken, Date start, Date end) throws Exception {
 
         HttpHeaders httpHeaders = createBasicAuthHeaders(beeboleToken);
 
         RestTemplate tmp = new RestTemplate();
 
         TimeEntriesRequest request = new TimeEntriesRequest();
-        request.from = getFromDate(month, year);
-        request.to = getToDate(month, year);
+        request.from = format.format(start);
+        request.to = format.format(end);
 
+        logger.debug("sending getTimeEntries, request{}", request);
+        
         String response = tmp.exchange(url, HttpMethod.POST, new HttpEntity(request, httpHeaders), String.class)
                 .getBody();
         logger.debug("getTimeEntries, Response: {}", response);
@@ -103,12 +121,18 @@ public class BeeboleService {
         return httpHeaders;
     }
 
-    private String getToDate(Integer month, Integer year) {
-        return "2013-11-30";
+    private Date getFromDate(Integer month, Integer year) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        cal.set(year, month-1, 1);
+        return cal.getTime();
     }
 
-    private String getFromDate(Integer month, Integer year) {
-        return "2013-11-01";
+    private Date getToDate(Integer month, Integer year) throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month-1);
+        cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        return cal.getTime();
     }
 
     private EntitiesResponse getEntities(String beeboleToken) throws Exception {

@@ -58,7 +58,7 @@ reackServices.factory('Timesheet', function() {
 
 });
 
-reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http',function(Persistence,Calculation,$http) {
+reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http','$timeout',function(Persistence,Calculation,$http,$timeout) {
 	return {
 		generateReceipt : function() {
 			var result = {};
@@ -91,6 +91,16 @@ reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http',f
 					elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
 					result.totalSum = result.totalSum + elem.sum;
 				});
+				result.loaded = true;
+			})
+			.error(function() {
+				$timeout(function(){
+					console.log("DUPA....");
+					result.failed = true;
+				},2000);
+				// setTimeout(function(){
+					
+				// },2000);
 			});
 
 			result.totalSum = 0;

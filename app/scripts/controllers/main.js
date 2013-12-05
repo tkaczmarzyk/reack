@@ -24,12 +24,13 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     $scope.receiptData = result;
 
   }])
-  .controller('ConfigCtrl', ['$scope', 'Persistence', function ($scope, Persistence) {
+  .controller('ConfigCtrl', ['$scope', 'Persistence', 'toaster', function ($scope, Persistence, toaster) {
 
     $scope.config = Persistence.loadConfig();
 
     $scope.save = function () {
       Persistence.saveConfig($scope.config);
+      toaster.pop('success', "Success", "The config has been successfuly updated, my master!");
     };
   }])
   .controller('HelloCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {

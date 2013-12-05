@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
         <link rel="stylesheet" href="bower_components/sass-bootstrap-glyphicons/css/bootstrap-glyphicons.css">
+        <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css">
 </head>
   <body ng-app="reack">
     <!--[if lt IE 7]>
@@ -25,6 +26,8 @@
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
+
+    <toaster-container> </toaster-container>
 
     <!-- Add your site or application content here -->
     <div class="container" ng-view=""></div>
@@ -59,6 +62,7 @@
         <script src="bower_components/sass-bootstrap/js/tab.js"></script>
         <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
         <script src="bower_components/sass-bootstrap/js/popover.js"></script>
+        <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/modules.js -->
@@ -66,6 +70,7 @@
         <script src="bower_components/angular-cookies/angular-cookies.js"></script>
         <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/scripts.js -->

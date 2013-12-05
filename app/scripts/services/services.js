@@ -54,15 +54,48 @@ reackServices.factory('Persistence', function(localStorage) {
 	};
 });
 
-reackServices.factory('Timesheet', function() {
+reackServices.factory('Timesheet', ['$http', '$timeout', function($http, $timeout) {
+	return {
+		fetchProjectData : function(beeboleToken, callback, onError) {
+			console.log('real fetchProjectData');
+			$http({
+				method:'POST',
+				url:'/api/monthSummary',
+				data:{
+					'month':this.month,
+					'year': this.year,
+					'beeboleToken': beeboleToken
+				}
+			})
+			.success(function(data) {
+				data.projects.forEach(function(elem){
+					elem.timeWorked = elem.timeWorked+'h';
+				});
+				callback(data.projects);
+			})
+			.error(onError);
+		}
+	};
+}]);
 
-});
+reackServices.factory('FinancialService', ['$http', function($http) {
+	return {
+		addData : function(projectEntry) {
+			elem.dailyWage = config.dailyWage;
+			elem.workerName = config.name;
+			elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
+			return projectEntry;
+		}
+	};
+}]);
 
-reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http','$timeout',function(Persistence,Calculation,$http,$timeout) {
+
+reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesheet', 'FinancialService', function(Persistence, Calculation, Timesheet, FinancialService) {
 	return {
 		generateReceipt : function() {
 			var result = {};
 			var config = Persistence.loadConfig();
+			console.log('loaded config: ' + config);
 			result.orderDate = new Date(this.year,this.month-1,1); //getMonthFirstDay(month);
 			result.receiptDate = new Date(this.year,this.month,1); //getNextMonthFirstDay(month);
 			result.startDate = new Date(this.year,this.month-1,1); //getMonthFirstDay(month);
@@ -72,38 +105,21 @@ reackServices.factory('ReceiptGenerator', ['Persistence','Calculation','$http','
 			result.managerName = config.managerName;
 			result.workerName = config.name;
 			result.dailyWage = config.dailyWage;
+			result.totalSum = 0;
+			result.projects = [];
 
-			$http({
-				method:'POST',
-				url:'/api/monthSummary',
-				data:{
-					'month':this.month,
-					'year': this.year,
-					'beeboleToken':config.beeboleToken
-				}
-			})
-			.success(function(data) {
-				result.projects = data.projects;
-				data.projects.forEach(function(elem){
-					elem.timeWorked = elem.timeWorked+'h';
-					elem.dailyWage = config.dailyWage;
-					elem.workerName = config.name;
-					elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
-					result.totalSum = result.totalSum + elem.sum;
+			result.loading = true;
+			Timesheet.fetchProjectData(config.beeboleToken, function(elems) {
+				elems.forEach(function (elem) {
+					var entry = FinancialService.addData(elem);
+					result.projects.push(entry);
+					result.totalSum = result.totalSum + entry.sum;
 				});
-				result.loaded = true;
-			})
-			.error(function() {
-				$timeout(function(){
-					console.log("DUPA....");
-					result.failed = true;
-				},2000);
-				// setTimeout(function(){
-					
-				// },2000);
+				result.loading = false;
+			}, function() {
+				result.failed = true;
 			});
 
-			result.totalSum = 0;
 			return result;
 		},
 

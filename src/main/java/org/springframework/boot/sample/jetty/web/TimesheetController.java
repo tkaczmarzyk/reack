@@ -19,6 +19,7 @@ package org.springframework.boot.sample.jetty.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.sample.jetty.dto.MonthlySummaryRequest;
 import org.springframework.boot.sample.jetty.dto.SummaryRequest;
 import org.springframework.boot.sample.jetty.service.BeeboleService;
 import org.springframework.stereotype.Controller;
@@ -39,11 +40,21 @@ public class TimesheetController {
 
     @RequestMapping(value = "/monthSummary", method = { RequestMethod.POST }, consumes = { "application/json" })
     @ResponseBody
-    public String monthSummary(@RequestBody SummaryRequest request) throws Exception {
+    public String monthSummary(@RequestBody MonthlySummaryRequest request) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         logger.error("request beebole:{}, month:{}, year:{}", new Object[] { request.beeboleToken, request.month,
                 request.year });
         return mapper.writeValueAsString(beeboleService.getMonthSummary(request.beeboleToken, request.month,
                 request.year));
+    }
+    
+    @RequestMapping(value = "/summary", method = { RequestMethod.POST }, consumes = { "application/json" })
+    @ResponseBody
+    public String summary(@RequestBody SummaryRequest request) throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        logger.error("request beebole:{}, startDate:{}, endDate:{}", new Object[] { request.beeboleToken, request.start,
+                request.end });
+        return mapper.writeValueAsString(beeboleService.getSummary(request.beeboleToken, request.start,
+                request.end));
     }
 }

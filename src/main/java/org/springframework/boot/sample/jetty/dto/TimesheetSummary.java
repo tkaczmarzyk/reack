@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TimesheetMonthlySummary {
+public class TimesheetSummary {
 
     public Date start;
     public Date end;

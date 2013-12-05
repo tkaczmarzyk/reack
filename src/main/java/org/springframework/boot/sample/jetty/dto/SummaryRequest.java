@@ -1,12 +1,11 @@
 package org.springframework.boot.sample.jetty.dto;
 
+import java.util.Date;
+
 public class SummaryRequest {
 
-    public SummaryRequest() {
-    }
-    
     public String beeboleToken;
-    public Integer month;
-    public Integer year;
+    public Date start;
+    public Date end;
     
 }

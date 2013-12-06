@@ -87,15 +87,19 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 					projectCode: 'Cohesiva:Fit',
 					workerName: config.name,
 					dailyWage: 61.46,
-					timeWorked: 1
+					timeWorked: 1,
+					sum: 61.46
 				});
+				result.totalSum = 61.46;
 			} else if (config.multisport === 'plus') {
 				result.projects.push({
 					projectCode: 'Cohesiva:Fit',
 					workerName: config.name,
 					dailyWage: 69.76,
-					timeWorked: 1
+					timeWorked: 1,
+					sum: 69.76
 				});
+				result.totalSum = 69.76;
 			}
 
 			result.loading = true;

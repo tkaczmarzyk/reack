@@ -22,7 +22,6 @@ reackServices.factory('Calculation', function() {
 });
 
 reackServices.factory('Persistence', function(localStorage) {
-	var dailyWage = null;
 	return {
 		loadConfig : function() {
 			var config = localStorage.config;
@@ -34,7 +33,7 @@ reackServices.factory('Persistence', function(localStorage) {
 	};
 });
 
-reackServices.factory('Timesheet', ['$http', '$timeout', function($http, $timeout) {
+reackServices.factory('Timesheet', ['$http', function($http) {
 	return {
 		fetchProjectData : function(beeboleToken, callback, onError) {
 			console.log('real fetchProjectData');
@@ -58,12 +57,12 @@ reackServices.factory('Timesheet', ['$http', '$timeout', function($http, $timeou
 	};
 }]);
 
-reackServices.factory('FinancialService', ['$http', function($http) {
+reackServices.factory('FinancialService', ['$http','Calculation', function($http,Calculation) {
 	return {
-		addData : function(projectEntry) {
-			elem.dailyWage = config.dailyWage;
-			elem.workerName = config.name;
-			elem.sum = Calculation.calculate(config.dailyWage,elem.timeWorked);
+		addData : function(projectEntry,config) {
+			projectEntry.dailyWage = config.dailyWage;
+			projectEntry.workerName = config.name;
+			projectEntry.sum = Calculation.calculate(config.dailyWage,projectEntry.timeWorked);
 			return projectEntry;
 		}
 	};
@@ -91,19 +90,16 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 			result.loading = true;
 			Timesheet.fetchProjectData(config.beeboleToken, function(elems) {
 				elems.forEach(function (elem) {
-					var entry = FinancialService.addData(elem);
+					var entry = FinancialService.addData(elem,config);
 					result.projects.push(entry);
 					result.totalSum = result.totalSum + entry.sum;
 				});
-				result.loading = false;
+				result.loaded = true;
 			}, function() {
 				result.failed = true;
 			});
 
 			return result;
 		},
-
-		month : 10,
-		year : 2012
 	};
 }]);

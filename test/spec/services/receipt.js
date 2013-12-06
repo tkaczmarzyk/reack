@@ -3,7 +3,7 @@
 describe('Service: ReceiptGenerator', function () {
 
   var ReceiptGenerator,
-    mockFinancialService = { addData: function(arg) {return arg;} },
+    mockFinancialService = { addData: function(arg,config) {return arg;} },
     mockTimesheet = {
       fetchProjectData: function(token, callback, onError) {
         console.log('mock fetchProjectData');
@@ -15,13 +15,18 @@ describe('Service: ReceiptGenerator', function () {
       workerName: 'The Worker',
       dailyWage: 100
     },
-    mockPersistence;
+    mockPersistence = {
+      loadConfig: function() {
+        return mockConfig;
+      }
+    };
 
   // load the controller's module
   beforeEach(module('reackServices', function($provide) {
     spyOn(mockFinancialService, 'addData').andCallThrough();
     $provide.value('FinancialService', mockFinancialService);
     $provide.value('Timesheet', mockTimesheet);
+    $provide.value('Persistence',mockPersistence);
   }));
   beforeEach(inject(function(_ReceiptGenerator_) {
     ReceiptGenerator = _ReceiptGenerator_;
@@ -29,8 +34,8 @@ describe('Service: ReceiptGenerator', function () {
 
   it('should add decorate all entries from timesheet with financial data', inject(function () {
     var receipt = ReceiptGenerator.generateReceipt();
-    expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 100});
-    expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 200});
+    expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 100},mockConfig);
+    expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 200},mockConfig);
   }));
 
   it('should include all entries from timesheet', inject(function (Persistence) {

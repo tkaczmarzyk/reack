@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reack.controllers', ['reack.filters','reackServices'])
-  .controller('MainCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', function ($scope, Calculation, ReceiptGenerator) {
+  .controller('MainCtrl', ['$scope', 'Calculation', 'Timesheet', function ($scope, Calculation, Timesheet) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,8 +18,8 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     };
 
     $scope.setValues = function(){
-      ReceiptGenerator.month = $scope.month.value;
-      ReceiptGenerator.year = $scope.year.value;
+      Timesheet.month = $scope.month.value;
+      Timesheet.year = $scope.year.value;
     };
 
   }])
@@ -35,7 +35,7 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
 
     $scope.save = function () {
       Persistence.saveConfig($scope.config);
-      toaster.pop('success', "Success", "The config has been successfuly updated, my master!");
+      toaster.pop('success', 'Success', 'The config has been successfuly updated, my master!');
     };
   }])
   .controller('HelloCtrl', ['$scope', '$http', '$routeParams', function ($scope, $http, $routeParams) {

@@ -13,7 +13,7 @@
 	</div>
 	</p>
 	<br/>
-	<p><a id="calculate" class="btn btn-lg btn-success" href="#/receipt2" ng-click="setValues()">Generuj odbiór!</a></p>
+	<p><a id="calculate" class="btn btn-lg" ng-class="{'btn-success': isConfigured(),'btn-warning':!isConfigured()}" href="{{buttonLink}}" ng-click="setValues()">{{buttonText}}</a></p>
 </div>
 
 <div class="footer">

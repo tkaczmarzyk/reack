@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reack.controllers', ['reack.filters','reackServices'])
-  .controller('MainCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', function ($scope, Calculation, ReceiptGenerator) {
+  .controller('MainCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', 'Persistence', function ($scope, Calculation, ReceiptGenerator, Persistence) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -28,6 +28,20 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
         }
       })
     }
+
+    $scope.isConfigured = function() {
+      var config = Persistence.loadConfig();
+      console.log(config);
+      if(config.beeboleToken && config.beeboleToken !== ""){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    $scope.buttonLink = $scope.isConfigured() ? "#/receipt2" : "#/config";
+
+    $scope.buttonText = $scope.isConfigured() ? "Generuj odbiór!" : "Skonfiguruj aplikację";
 
     $scope.sum = function () {
       return Calculation.calculate($scope.dailyWage, $scope.timeWorked) || 0;

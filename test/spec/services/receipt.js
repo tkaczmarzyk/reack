@@ -38,7 +38,20 @@ describe('Service: ReceiptGenerator', function () {
     expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 200},mockConfig);
   }));
 
+  it('should add multisport plus entry if specified in config', inject(function () {
+    mockConfig.multisport = 'plus';
+    var receipt = ReceiptGenerator.generateReceipt();
+    expect(receipt.projects.length).toBe(3);
+  }));
+
+  it('should add multisport classic entry if specified in config', inject(function () {
+    mockConfig.multisport = 'classic';
+    var receipt = ReceiptGenerator.generateReceipt();
+    expect(receipt.projects.length).toBe(3);
+  }));
+
   it('should include all entries from timesheet', inject(function (Persistence) {
+    mockConfig.multisport = null;
     var receipt = ReceiptGenerator.generateReceipt();
 
     expect(receipt.projects.length).toBe(2);

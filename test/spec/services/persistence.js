@@ -8,6 +8,7 @@ describe('Service: Persistence', function () {
   beforeEach(module('reackServices'));
 
   it('should return null if no previously remembered config', inject(function (Persistence) {
+    Persistence.saveConfig({});
     var config = Persistence.loadConfig();
     expect(config.dailyWage).toEqual(null);
   }));

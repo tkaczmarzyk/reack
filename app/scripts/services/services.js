@@ -85,7 +85,23 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 			result.workerName = config.name;
 			result.dailyWage = config.dailyWage;
 			result.totalSum = 0;
+
 			result.projects = [];
+			if (config.multisport === 'classic') {
+				result.projects.push({
+					projectCode: 'Cohesiva:Fit',
+					workerName: config.name,
+					dailyWage: 61.46,
+					timeWorked: 1
+				});
+			} else if (config.multisport === 'plus') {
+				result.projects.push({
+					projectCode: 'Cohesiva:Fit',
+					workerName: config.name,
+					dailyWage: 69.76,
+					timeWorked: 1
+				});
+			}
 
 			result.loading = true;
 			Timesheet.fetchProjectData(config.beeboleToken, function(elems) {

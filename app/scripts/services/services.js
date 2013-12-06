@@ -35,16 +35,12 @@ reackServices.factory('Persistence', function(localStorage) {
 
 reackServices.factory('Timesheet', ['$http', function($http) {
 	return {
-		fetchProjectData : function(beeboleToken, callback, onError) {
+		fetchProjectData : function(requestData, callback, onError) {
 			console.log('real fetchProjectData');
 			$http({
 				method:'POST',
 				url:'/api/monthSummary',
-				data:{
-					'month':this.month,
-					'year': this.year,
-					'beeboleToken': beeboleToken
-				}
+				data:requestData
 			})
 			.success(function(data) {
 				data.projects.forEach(function(elem){
@@ -74,7 +70,6 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 		generateReceipt : function() {
 			var result = {};
 			var config = Persistence.loadConfig();
-			console.log('loaded config: ' + config);
 			result.orderDate = new Date(this.year,this.month-1,1); //getMonthFirstDay(month);
 			result.receiptDate = new Date(this.year,this.month,1); //getNextMonthFirstDay(month);
 			result.startDate = new Date(this.year,this.month-1,1); //getMonthFirstDay(month);
@@ -104,7 +99,12 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 			}
 
 			result.loading = true;
-			Timesheet.fetchProjectData(config.beeboleToken, function(elems) {
+			var requestData = {
+				beeboleToken:config.beeboleToken,
+				month:this.month,
+				year:this.year
+			};
+			Timesheet.fetchProjectData(requestData, function(elems) {
 				elems.forEach(function (elem) {
 					var entry = FinancialService.addData(elem,config);
 					result.projects.push(entry);
@@ -116,6 +116,6 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 			});
 
 			return result;
-		},
+		}
 	};
 }]);

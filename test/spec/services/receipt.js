@@ -5,9 +5,10 @@ describe('Service: ReceiptGenerator', function () {
   var ReceiptGenerator,
     mockFinancialService = { addData: function(arg,config) {return arg;} },
     mockTimesheet = {
-      fetchProjectData: function(token, callback, onError) {
+      fetchProjectData: function(requestData, callback, onError) {
         console.log('mock fetchProjectData');
         callback([{sum: 100}, {sum: 200}]);
+        console.log('after calllback !!!!!!!!!!!!');
       }
     },
     mockConfig = {
@@ -33,7 +34,9 @@ describe('Service: ReceiptGenerator', function () {
   }));
 
   it('should add decorate all entries from timesheet with financial data', inject(function () {
+    console.log("test started ...")
     var receipt = ReceiptGenerator.generateReceipt();
+    console.log("created receipt Generator");
     expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 100},mockConfig);
     expect(mockFinancialService.addData).toHaveBeenCalledWith({sum: 200},mockConfig);
   }));

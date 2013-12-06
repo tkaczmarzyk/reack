@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('reack.controllers', ['reack.filters','reackServices'])
-  .controller('MainCtrl', ['$scope', 'Calculation', 'Timesheet', function ($scope, Calculation, Timesheet) {
+  .controller('MainCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', function ($scope, Calculation, ReceiptGenerator) {
 
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
@@ -18,8 +18,8 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     };
 
     $scope.setValues = function(){
-      Timesheet.month = $scope.month.value;
-      Timesheet.year = $scope.year.value;
+      ReceiptGenerator.month = $scope.month.value;
+      ReceiptGenerator.year = $scope.year.value;
     };
 
   }])

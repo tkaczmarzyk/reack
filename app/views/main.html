@@ -3,11 +3,11 @@
 	<h1>'Uwaga, Uwaga!</h1>
 	<p class="lead">Nowa aplikacja do obsługi odbiorów ...</p>
 	<p>
-	<div class="col-sm-6">
+	<div ng-init="initMonth()" class="col-sm-6">
 		<select ng-model="month" class="form-control" ng-options="m.name for m in months">
 		</select>
 	</div>
-	<div class="col-sm-6">
+	<div ng-init="initYear()" class="col-sm-6">
 		<select ng-model="year" class="form-control" ng-options="y.name for y in years">
 		</select>
 	</div>

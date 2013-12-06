@@ -13,6 +13,22 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
 
     $scope.years = [{name:'2013',value:2013},{name:'2014',value:2014}];
 
+    $scope.initMonth = function() {
+      $scope.months.forEach(function(elem){
+        if(elem.value === new Date().getMonth() ){
+          $scope.month = elem;
+        }
+      });
+    }
+
+    $scope.initYear = function() {
+      $scope.years.forEach(function(elem) {
+        if(elem.value === new Date().getFullYear()){
+          $scope.year = elem;
+        }
+      })
+    }
+
     $scope.sum = function () {
       return Calculation.calculate($scope.dailyWage, $scope.timeWorked) || 0;
     };

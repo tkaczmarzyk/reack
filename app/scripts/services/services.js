@@ -25,7 +25,7 @@ reackServices.factory('Persistence', function(localStorage) {
 	return {
 		loadConfig : function() {
 			var config = localStorage.config;
-			return config ? JSON.parse(localStorage.config) : {};
+			return config ? JSON.parse(localStorage.config) : { multisport: 'brak' };
 		},
 		saveConfig : function(config) {
 			localStorage.config = JSON.stringify(config);

@@ -67,6 +67,40 @@ body {
     margin-top: 28px;
 }
 
+.loading_homer {
+    background-image: url(http://cgross.github.io/angular-busy/demo/homer.gif);
+    background-size: contain;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.loading_homer_text {
+    color:white;
+    text-align:center;
+    font-size:26px;
+    margin-top:10px;
+}
+
+.error_page_homer {
+    background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQb8JnBN3WvGk1AxlQGhWEVOm4tHPy2OX4A3rOcUbpnGr-3F30l7g);
+    background-size: contain;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.error_page_homer_text {
+    color:black;
+    text-align:center;
+    font-size:36px;
+    margin-top:10px;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {

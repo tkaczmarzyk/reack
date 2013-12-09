@@ -39,7 +39,7 @@ reackServices.factory('Timesheet', ['$http', function($http) {
 			console.log('real fetchProjectData');
 			$http({
 				method:'POST',
-				url:'/api/monthSummary',
+				url:'api/monthSummary',
 				data:requestData
 			})
 			.success(function(data) {

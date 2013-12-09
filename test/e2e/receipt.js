@@ -12,6 +12,7 @@ describe('Receipt ', function() {
 		input('config.name').enter('moje imie');
 		input('config.managerName').enter('imie manago');
 		input('config.dailyWage').enter('1378.89');
+		input('config.beeboleToken').enter('dummyToken');
 		element('#saveConfig').click();
 		
 		browser().navigateTo('/');

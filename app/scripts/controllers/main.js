@@ -48,13 +48,14 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
     };
 
     $scope.setValues = function(){
-      ReceiptGenerator.month = $scope.month.value;
-      ReceiptGenerator.year = $scope.year.value;
+      $scope.buttonLink = $scope.buttonLink+'?month='+$scope.month.value+'&year='+$scope.year.value;
     };
 
   }])
-  .controller('ReceiptCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', function ($scope, Calculation, ReceiptGenerator) {
+  .controller('ReceiptCtrl', ['$scope', 'Calculation', 'ReceiptGenerator', '$routeParams', function ($scope, Calculation, ReceiptGenerator, $routeParams) {
 
+    ReceiptGenerator.month=$routeParams.month;
+    ReceiptGenerator.year=$routeParams.year;
     var result = ReceiptGenerator.generateReceipt();
     $scope.receiptData = result;
 

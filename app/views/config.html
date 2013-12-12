@@ -5,6 +5,12 @@
 <div class="row marketing">
 	<form class="form-horizontal" ng-submit="save()" role="form">
 		<div class="form-group">
+			<label class="col-sm-5 control-label beebole">Beebole token <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+			<div class="col-sm-7">
+				<input ng-model="config.beeboleToken" class="form-control">
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="col-sm-5 control-label">Twoje imię i nazwisko</label>
 			<div class="col-sm-7">
 				<input ng-model="config.name" class="form-control">
@@ -30,12 +36,6 @@
 					<option value="plus">Multisport Plus</option>
 					<option value="classic">Multisport Classic</option>
 				</select>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="col-sm-5 control-label beebole">Beebole token <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span></a></label>
-			<div class="col-sm-7">
-				<input ng-model="config.beeboleToken" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">

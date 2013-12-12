@@ -31,7 +31,6 @@ angular.module('reack.controllers', ['reack.filters','reackServices'])
 
     $scope.isConfigured = function() {
       var config = Persistence.loadConfig();
-      console.log(config);
       if(config.beeboleToken && config.beeboleToken !== ""){
         return true;
       } else {

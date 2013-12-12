@@ -2,29 +2,29 @@
 
 <h3>Skonfiguruj aplikację</h3>
 
-<div class="row marketing" role="form" class="form-horizontal">
-	<form ng-submit="save()">
+<div class="row marketing">
+	<form class="form-horizontal" ng-submit="save()" role="form">
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Twoje imię i nazwisko</label>
-			<div class="col-sm-8">
+			<label class="col-sm-5 control-label">Twoje imię i nazwisko</label>
+			<div class="col-sm-7">
 				<input ng-model="config.name" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Imię i nazwisko managera</label>
-			<div class="col-sm-8">
+			<label class="col-sm-5 control-label">Imię i nazwisko odbierającego protokół</label>
+			<div class="col-sm-7">
 				<input ng-model="config.managerName" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Stawka dzienna</label>
-			<div class="col-sm-8">
+			<label class="col-sm-5 control-label">Stawka dzienna</label>
+			<div class="col-sm-7">
 				<input ng-model="config.dailyWage" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label">Multisport</label>
-			<div class="col-sm-8">
+			<label class="col-sm-5 control-label">Multisport</label>
+			<div class="col-sm-7">
 				<select ng-model="config.multisport" class="form-control">
 					<option value="brak">brak</option>
 					<option value="plus">Multisport Plus</option>
@@ -33,13 +33,14 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-4 control-label beebole">Beebole token <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span></a></label>
-			<div class="col-sm-8">
+			<label class="col-sm-5 control-label beebole">Beebole token <a href="#/about"><span class="glyphicon glyphicon-question-sign"></span></a></label>
+			<div class="col-sm-7">
 				<input ng-model="config.beeboleToken" class="form-control">
 			</div>
 		</div>
 		<div class="form-group">
-		    <div class="col-sm-offset-4 col-sm-8">
+		    <div class="col-sm-offset-5 col-sm-7">
+		      <a href="#/main"><button class="btn btn-primary">Przejdź do generacji odbioru</button></a>
 		      <button id="saveConfig" type="submit" class="btn btn-primary">Save</button>
 		    </div>
 		</div>

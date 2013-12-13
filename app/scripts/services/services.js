@@ -119,6 +119,14 @@ reackServices.factory('ReceiptGenerator', ['Persistence', 'Calculation', 'Timesh
 				result.failed = true;
 			});
 
+			if(this.additionalCost){
+				result.projects.push({
+					projectCode: 'Koszty dodatkowe',
+					sum: this.additionalCost					
+				});
+				result.totalSum = result.totalSum + parseFloat(this.additionalCost);
+			}
+
 			return result;
 		}
 	};

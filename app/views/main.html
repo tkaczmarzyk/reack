@@ -3,17 +3,29 @@
 	<h1>Uwaga, Uwaga!</h1>
 	<p class="lead">Nowa aplikacja do obsługi odbiorów ...</p>
 	<p>
-	<div ng-init="initMonth()" class="col-sm-6">
-		<select ng-model="month" class="form-control" ng-options="m.name for m in months">
-		</select>
-	</div>
-	<div ng-init="initYear()" class="col-sm-6">
-		<select ng-model="year" class="form-control" ng-options="y.name for y in years">
-		</select>
-	</div>
-	</p>
-	<br/>
-	<p><a id="calculate" class="btn btn-lg" ng-class="{'btn-success': isConfigured(),'btn-warning':!isConfigured()}" href="{{buttonLink}}" ng-click="setValues()">{{buttonText}}</a></p>
+	<form name="form" role="form" class="form-horizontal">
+		<div ng-init="initMonth()" class="col-sm-6">
+			<select class="form-control" ng-model="month" class="form-control" ng-options="m.name for m in months" required>
+			</select>
+		</div>
+		<div ng-init="initYear()" class="col-sm-6">
+			<select class="form-control" ng-model="year" class="form-control" ng-options="y.name for y in years" required>
+			</select>
+		</div>
+		</p>
+		<br/>
+		<p>
+			<label class="col-sm-6 control-label lead">Koszty dodatkowe</label>
+			<div class="col-sm-6">
+				<!-- <input ng-model="added" type="checkbox"><span>Dodaj koszty dodatkowe</span> -->
+				<input name="additionalCost" ng-model="additionalCost" class="form-control" max-Two-decimal-places-float>
+			</div>
+			<span ng-show="form.additinalCost.$error.float">
+	            To nie jest poprawna wartość liczbowa</span>
+		</p>
+		<br/>
+		<p><a id="calculate" class="btn btn-lg" ng-class="{'btn-success': isConfigured(),'btn-warning':!isConfigured()}" href="{{buttonLink}}" ng-click="setValues()">{{buttonText}}</a></p>
+	<form>
 </div>
 
 <div class="footer">

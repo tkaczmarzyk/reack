@@ -9,7 +9,8 @@ angular.module('reack', [
   'reack.filters',
   'reack.controllers',
   'ui.bootstrap',
-  'toaster'
+  'toaster',
+  'validation'
 ])
   .config(function ($routeProvider) {
     $routeProvider
